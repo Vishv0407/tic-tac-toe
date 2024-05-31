@@ -1,9 +1,17 @@
 const boxes = document.querySelectorAll(".box");
 const gameInfo = document.querySelector(".game-info");
 const newGameBtn = document.querySelector('.new-game-btn');
+const onePlayer = document.querySelector(".onePlayer");
+const twoPlayer = document.querySelector(".twoPlayer");
+const homeContainer = document.querySelector(".home-container");
+const mainContainer = document.querySelector(".main-container");
+const homeBtn = document.querySelector(".homeBtn");
+const gamePlayerStatus = document.querySelector(".playerGameStatus");
+const resetBtn = document.querySelector(".resetBtn");
 
 let currentPlayer;
 let gameGrid;
+let isOver = false;
 
 const winPositions = [
     [0,1,2],
@@ -17,10 +25,15 @@ const winPositions = [
 ];
 
 // let's create function for initialise the game
+function initGame(mode) {
 
-function initGame() {
+    // homeContainer.classList.add("active");
+    mainContainer.classList.remove("active");
+    resetBtn.style.display = "flex";
+
     currentPlayer = "X";
     gameGrid = ["","","","","","","","",""];
+    
     boxes.forEach((box,index) => {
         box.innerText = "";
         boxes[index].style.pointerEvents = "all";
@@ -36,17 +49,45 @@ function initGame() {
         boxes[index].classList.remove("win");
     })
 
+    isOver = false;
+
+     // Custom initialization based on game mode
+     if (mode === "onePlayer") {
+        playOnePlayer();
+    } else if (mode === "twoPlayer") {
+        playTwoPlayer();
+    }
+
 }
 
 initGame();
 
-boxes.forEach((box, index) => {
-     box.addEventListener('click' , () => {
-        handleClick(index);
-     })
-})
+function playOnePlayer() {
+    // initGame();
+    gamePlayerStatus.innerText = `1 player game`;
+
+    boxes.forEach((box, index) => {
+        box.addEventListener('click' , () => { 
+           handleClick2(index);
+        })
+   })
+}
+
+function playTwoPlayer() {
+    // initGame();
+    gamePlayerStatus.innerText = `2 player game`;
+
+    boxes.forEach((box, index) => {
+        box.addEventListener('click' , () => { 
+           handleClick(index);
+        })
+   })
+}
+
+
 
 function handleClick(index){
+
     if(gameGrid[index] === ""){
         boxes[index].innerHTML = currentPlayer;
         gameGrid[index] = currentPlayer;
@@ -58,6 +99,42 @@ function handleClick(index){
         // check win
         checkWinner();   
     }
+}
+
+
+function handleClick2(index){
+
+    if(gameGrid[index] === ""){
+        boxes[index].innerHTML = currentPlayer;
+        gameGrid[index] = currentPlayer;
+        boxes[index].style.pointerEvents = "none";
+        
+        // swap player
+        swapTurn();
+        
+        checkWinner(); 
+
+        if (currentPlayer === "O" && isOver === false) {
+            let arrCheck = [];
+            gameGrid.forEach((element, index) => {
+
+              if (element === "") {
+                arrCheck.push(index);
+              }
+            });
+
+            let tempCompIndex = arrCheck[Math.floor(Math.random()* arrCheck.length)];
+
+            gameGrid[tempCompIndex] = "O";
+            boxes[tempCompIndex].innerHTML = "O";
+          }
+          swapTurn();
+
+          checkWinner();
+          
+
+        // check win
+    }    
 }
 
 function swapTurn() {
@@ -96,17 +173,17 @@ function checkWinner() {
             boxes[position[0]].classList.add("win");
             boxes[position[1]].classList.add("win");
             boxes[position[2]].classList.add("win");
-
         }
-        
         
         if(winner != ""){
             gameInfo.innerText = `Winner🥳 - ${winner}`;
             newGameBtn.classList.add("active");
+            resetBtn.style.display = "none";
+            
+            isOver = true;
         }
 
         // if game tie
-
         let fillCount = 0;
         gameGrid.forEach((box) => {
             if(box !== ""){
@@ -114,12 +191,57 @@ function checkWinner() {
             }
         })
 
-        if(fillCount === 9){
+        if(fillCount === 9 && winner === ""){
             gameInfo.innerText = `Game tied!`;
             newGameBtn.classList.add("active");
+            resetBtn.style.display = "none";
+            isOver = true;
         }
     
     })
 }
 
-newGameBtn.addEventListener('click', initGame);
+function resetGrid(){
+    currentPlayer = "X";
+    gameGrid = ["","","","","","","","",""];
+    
+    boxes.forEach((box,index) => {
+        box.innerText = "";
+        boxes[index].style.pointerEvents = "all";
+    });
+    gameInfo.innerText = `current Player - ${currentPlayer}`;
+
+     //remove green color
+     boxes.forEach((box,index) => {
+        boxes[index].classList.remove("win");
+    })
+
+    //remove new game btn
+    newGameBtn.classList.remove("active");
+}
+
+newGameBtn.addEventListener('click', () => {
+    initGame();
+});
+
+onePlayer.addEventListener('click', () => {
+    initGame("onePlayer");  // Call the function with "onePlayer" mode
+    homeContainer.classList.add("active");
+    mainContainer.classList.add("active");
+});
+
+twoPlayer.addEventListener('click', () => {
+    initGame("twoPlayer"); // Call the function with "twoPlayer" mode
+    homeContainer.classList.add("active");
+    mainContainer.classList.add("active");
+});
+
+  
+homeBtn.addEventListener('click', () => {
+    location.reload();
+});
+
+resetBtn.addEventListener('click', () => {
+    resetGrid();
+
+});

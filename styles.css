@@ -1,11 +1,11 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
 }
 
-.wrapper{
+.wrapper {
     width: 100vw;
     height: 100vh;
     background-image: url(image.jpg);
@@ -14,17 +14,72 @@
     place-items: center;
 }
 
-.game-info{
+
+.home-container, .main-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    row-gap: 20px;
+}
+
+.head{
+    display: flex;
+    flex-direction: row;
+}
+
+.home-container.active{
+    display: none;
+}
+
+.main-container.active {
+    display: flex;
+}
+
+.home-container button, .new-game-btn, .homeBtn , .resetBtn{
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    color: white;
+    padding: 0.5rem 2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 0.5rem;
+}
+
+.homeBtn, .resetBtn{
+    justify-content: center;
+    margin-bottom: 3rem;
+}
+.new-game-btn {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.new-game-btn.active {
+    opacity: 1;
+}
+
+.playerGameStatus{
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+}
+
+.game-info {
     padding: 0.5rem 2rem;
     font-size: 1rem;
     color: white;
     background-color: rgba(255, 255, 255, 0.15);
     border-radius: 1rem;
     border: 1px solid rgba(255, 255, 255, 0.25);
+    margin-bottom: 1rem;
+    text-align: center;
 }
 
 .tic-tac-toe{
-    width: 90%;
+    width: 300px;
     max-width: 300px;
     aspect-ratio: 1/1;
     padding: 2rem;
@@ -46,47 +101,36 @@
     cursor: pointer;
 }
 
-.box:nth-child(1), .box:nth-child(3), .box:nth-child(7), .box:nth-child(9){
+.box:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.box:nth-child(1), .box:nth-child(3), .box:nth-child(7), .box:nth-child(9) {
     border: none;
 }
 
-.box:nth-child(2), .box:nth-child(8){
+.box:nth-child(2), .box:nth-child(8) {
     border-top: none;
     border-bottom: none;
 }
 
-.box:nth-child(4), .box:nth-child(6){
+.box:nth-child(4), .box:nth-child(6) {
     border-left: none;
     border-right: none;
 }
 
-.new-game-btn{
-    background-color: rgba(255, 255, 255, 0.15);
-    border-radius: 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    color: white;
-    padding: 0.5rem 2rem;
-    font-size: 1rem;
-    cursor: pointer;
-    opacity: 0;
-}
-
-.new-game-btn.active{
-    opacity: 1;
-}
-
-.win{
+.win {
     background-color: rgba(0, 255, 0, 0.3);
 }
-
 
 @media (max-width: 480px) {
     .game-info {
         padding: 0.25rem 1rem;
-        font-size: 0.75rem;
+        font-size: 1rem;
     }
 
     .tic-tac-toe {
+        width: 225px;
         padding: 1rem;
         font-size: 2rem;
     }
@@ -95,8 +139,8 @@
         border: 1px solid white;
     }
 
-    .new-game-btn {
-        font-size: 0.75rem;
-        padding: 0.5rem 1rem;
+    .new-game-btn, .home-container button {
+        font-size: 1rem;
+        padding: 0.5rem 1.5rem;
     }
 }
