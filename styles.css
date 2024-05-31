@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
+    overflow: hidden;
 }
 
 .wrapper {
@@ -50,7 +51,7 @@
 
 .homeBtn, .resetBtn{
     justify-content: center;
-    margin-bottom: 3rem;
+    margin-bottom: 1.75rem;
 }
 .new-game-btn {
     opacity: 0;
