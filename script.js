@@ -153,54 +153,50 @@ function checkWinner() {
     let winner = "";
 
     winPositions.forEach((position) => {
-    
-    // all box have same value/sign
-
-        if( (gameGrid[position[0]] != "" && gameGrid[position[1]] != "" && gameGrid[position[2]] != "") && (gameGrid[position[0]] === gameGrid[position[1]]) && (gameGrid[position[1]] === gameGrid[position[2]])){
-
+        // all box have same value/sign
+        if (gameGrid[position[0]] !== "" && gameGrid[position[0]] === gameGrid[position[1]] && gameGrid[position[1]] === gameGrid[position[2]]) 
+            {
             // check who is the winner
-            if(gameGrid[position[0]] == "X")
-                winner = "X";
-            else
-                winner = "O";
+            winner = gameGrid[position[0]];
 
             // after win, no box should take input -> disable pointer
             boxes.forEach((box) => {
                 box.style.pointerEvents = "none";
-            })
+            });
 
             // mark all winner box with green color
             boxes[position[0]].classList.add("win");
             boxes[position[1]].classList.add("win");
             boxes[position[2]].classList.add("win");
         }
-        
-        if(winner != ""){
-            gameInfo.innerText = `Winner🥳 - ${winner}`;
-            newGameBtn.classList.add("active");
-            resetBtn.style.display = "none";
-            gameGrid.style.pointerEvents = "none";
-            
-            isOver = true;
-        }
+    });
 
+    
+    if (winner) {
+        gameInfo.innerText = `Winner🥳 - ${winner}`;
+        newGameBtn.classList.add("active");
+        resetBtn.style.display = "none";
+        gameInfo.style.backgroundColor = "rgba(0, 255, 0, 0.3)";
+
+        isOver = true;
+    } 
+    else {
         // if game tie
         let fillCount = 0;
         gameGrid.forEach((box) => {
-            if(box !== ""){
+            if (box !== "") {
                 fillCount++;
             }
-        })
+        });
 
-        if(fillCount === 9 && winner === ""){
+        if (fillCount === 9) {
             gameInfo.innerText = `Game tied!`;
             newGameBtn.classList.add("active");
             resetBtn.style.display = "none";
-            gameGrid.style.pointerEvents = "none";
+            gameInfo.style.backgroundColor = "rgba(255, 0, 0, 0.3)";
             isOver = true;
         }
-    
-    })
+    }
 }
 
 function resetGrid(){
@@ -223,6 +219,7 @@ function resetGrid(){
 }
 
 newGameBtn.addEventListener('click', () => {
+    gameInfo.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
     initGame();
 });
 
