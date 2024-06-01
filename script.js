@@ -179,6 +179,7 @@ function checkWinner() {
             gameInfo.innerText = `Winner🥳 - ${winner}`;
             newGameBtn.classList.add("active");
             resetBtn.style.display = "none";
+            gameGrid.style.pointerEvents = "none";
             
             isOver = true;
         }
@@ -195,6 +196,7 @@ function checkWinner() {
             gameInfo.innerText = `Game tied!`;
             newGameBtn.classList.add("active");
             resetBtn.style.display = "none";
+            gameGrid.style.pointerEvents = "none";
             isOver = true;
         }
     
