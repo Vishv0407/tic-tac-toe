@@ -122,20 +122,20 @@ function handleClick2(index){
                 arrCheck.push(index);
               }
             });
-
-            let tempCompIndex = arrCheck[Math.floor(Math.random()* arrCheck.length)];
-
-            gameGrid[tempCompIndex] = "O";
-            boxes[tempCompIndex].innerHTML = "O";
-          }
-          swapTurn();
-
-          checkWinner();
-          
-
+            
+            // Use async/await for a cleaner pause and code flow
+            setTimeout(() => {
+                let tempCompIndex = arrCheck[Math.floor(Math.random() * arrCheck.length)];
+                gameGrid[tempCompIndex] = "O";
+                boxes[tempCompIndex].innerHTML = "O";
+                swapTurn();
+                checkWinner();
+              }, 400); // Pause for 1 second
+        }
         // check win
     }    
 }
+
 
 function swapTurn() {
     if(currentPlayer === "X"){
