@@ -14,14 +14,14 @@ let gameGrid;
 let isOver = false;
 
 const winPositions = [
-    [0,1,2],
-    [3,4,5],
-    [6,7,8],
-    [0,3,6],
-    [1,4,7],
-    [2,5,8],
-    [0,4,8],
-    [2,4,6]
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
 ];
 
 // let's create function for initialise the game
@@ -32,9 +32,9 @@ function initGame(mode) {
     resetBtn.style.display = "flex";
 
     currentPlayer = "X";
-    gameGrid = ["","","","","","","","",""];
-    
-    boxes.forEach((box,index) => {
+    gameGrid = ["", "", "", "", "", "", "", "", ""];
+
+    boxes.forEach((box, index) => {
         box.innerText = "";
         boxes[index].style.pointerEvents = "all";
     });
@@ -45,14 +45,14 @@ function initGame(mode) {
     gameInfo.innerText = `current Player - ${currentPlayer}`;
 
     //remove green color
-    boxes.forEach((box,index) => {
+    boxes.forEach((box, index) => {
         boxes[index].classList.remove("win");
     })
 
     isOver = false;
 
-     // Custom initialization based on game mode
-     if (mode === "onePlayer") {
+    // Custom initialization based on game mode
+    if (mode === "onePlayer") {
         playOnePlayer();
     } else if (mode === "twoPlayer") {
         playTwoPlayer();
@@ -67,10 +67,10 @@ function playOnePlayer() {
     gamePlayerStatus.innerText = `1 player game`;
 
     boxes.forEach((box, index) => {
-        box.addEventListener('click' , () => { 
-           handleClick2(index);
+        box.addEventListener('click', () => {
+            handleClick2(index);
         })
-   })
+    })
 }
 
 function playTwoPlayer() {
@@ -78,17 +78,17 @@ function playTwoPlayer() {
     gamePlayerStatus.innerText = `2 player game`;
 
     boxes.forEach((box, index) => {
-        box.addEventListener('click' , () => { 
-           handleClick(index);
+        box.addEventListener('click', () => {
+            handleClick(index);
         })
-   })
+    })
 }
 
 
 
-function handleClick(index){
+function handleClick(index) {
 
-    if(gameGrid[index] === ""){
+    if (gameGrid[index] === "") {
         boxes[index].innerHTML = currentPlayer;
         gameGrid[index] = currentPlayer;
         boxes[index].style.pointerEvents = "none";
@@ -97,32 +97,32 @@ function handleClick(index){
         swapTurn();
 
         // check win
-        checkWinner();   
+        checkWinner();
     }
 }
 
 
-function handleClick2(index){
+function handleClick2(index) {
 
-    if(gameGrid[index] === ""){
+    if (gameGrid[index] === "") {
         boxes[index].innerHTML = currentPlayer;
         gameGrid[index] = currentPlayer;
         boxes[index].style.pointerEvents = "none";
-        
+
         // swap player
         swapTurn();
-        
-        checkWinner(); 
+
+        checkWinner();
 
         if (currentPlayer === "O" && isOver === false) {
             let arrCheck = [];
             gameGrid.forEach((element, index) => {
 
-              if (element === "") {
-                arrCheck.push(index);
-              }
+                if (element === "") {
+                    arrCheck.push(index);
+                }
             });
-            
+
             // Use async/await for a cleaner pause and code flow
             setTimeout(() => {
                 let tempCompIndex = arrCheck[Math.floor(Math.random() * arrCheck.length)];
@@ -130,18 +130,18 @@ function handleClick2(index){
                 boxes[tempCompIndex].innerHTML = "O";
                 swapTurn();
                 checkWinner();
-              }, 400); // Pause for 1 second
+            }, 400); // Pause for 1 second
         }
         // check win
-    }    
+    }
 }
 
 
 function swapTurn() {
-    if(currentPlayer === "X"){
+    if (currentPlayer === "X") {
         currentPlayer = "O";
     }
-    else{
+    else {
         currentPlayer = "X";
     }
 
@@ -154,8 +154,7 @@ function checkWinner() {
 
     winPositions.forEach((position) => {
         // all box have same value/sign
-        if (gameGrid[position[0]] !== "" && gameGrid[position[0]] === gameGrid[position[1]] && gameGrid[position[1]] === gameGrid[position[2]]) 
-            {
+        if (gameGrid[position[0]] !== "" && gameGrid[position[0]] === gameGrid[position[1]] && gameGrid[position[1]] === gameGrid[position[2]]) {
             // check who is the winner
             winner = gameGrid[position[0]];
 
@@ -171,7 +170,7 @@ function checkWinner() {
         }
     });
 
-    
+
     if (winner) {
         gameInfo.innerText = `Winner🥳 - ${winner}`;
         newGameBtn.classList.add("active");
@@ -179,7 +178,7 @@ function checkWinner() {
         gameInfo.style.backgroundColor = "rgba(0, 255, 0, 0.3)";
 
         isOver = true;
-    } 
+    }
     else {
         // if game tie
         let fillCount = 0;
@@ -199,18 +198,18 @@ function checkWinner() {
     }
 }
 
-function resetGrid(){
+function resetGrid() {
     currentPlayer = "X";
-    gameGrid = ["","","","","","","","",""];
-    
-    boxes.forEach((box,index) => {
+    gameGrid = ["", "", "", "", "", "", "", "", ""];
+
+    boxes.forEach((box, index) => {
         box.innerText = "";
         boxes[index].style.pointerEvents = "all";
     });
     gameInfo.innerText = `current Player - ${currentPlayer}`;
 
-     //remove green color
-     boxes.forEach((box,index) => {
+    //remove green color
+    boxes.forEach((box, index) => {
         boxes[index].classList.remove("win");
     })
 
@@ -235,7 +234,7 @@ twoPlayer.addEventListener('click', () => {
     mainContainer.classList.add("active");
 });
 
-  
+
 homeBtn.addEventListener('click', () => {
     location.reload();
 });

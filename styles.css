@@ -15,8 +15,8 @@
     place-items: center;
 }
 
-
-.home-container, .main-container {
+.home-container,
+.main-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -25,12 +25,12 @@
     row-gap: 20px;
 }
 
-.head{
+.head {
     display: flex;
     flex-direction: row;
 }
 
-.home-container.active{
+.home-container.active {
     display: none;
 }
 
@@ -38,7 +38,10 @@
     display: flex;
 }
 
-.home-container button, .new-game-btn, .homeBtn , .resetBtn{
+.home-container button,
+.new-game-btn,
+.homeBtn,
+.resetBtn {
     background-color: rgba(255, 255, 255, 0.15);
     border-radius: 1rem;
     border: 1px solid rgba(255, 255, 255, 0.25);
@@ -49,14 +52,16 @@
     margin: 0.5rem;
 }
 
-.home-container img{
+.home-container img {
     width: 75%;
 }
 
-.homeBtn, .resetBtn{
+.homeBtn,
+.resetBtn {
     justify-content: center;
     margin-bottom: 1.75rem;
 }
+
 .new-game-btn {
     opacity: 0;
     transition: opacity 0.3s ease;
@@ -66,7 +71,7 @@
     opacity: 1;
 }
 
-.playerGameStatus{
+.playerGameStatus {
     color: white;
     font-size: 1.5rem;
     margin-bottom: 3rem;
@@ -83,7 +88,7 @@
     text-align: center;
 }
 
-.tic-tac-toe{
+.tic-tac-toe {
     width: 300px;
     max-width: 300px;
     aspect-ratio: 1/1;
@@ -97,7 +102,7 @@
     font-size: 3rem;
 }
 
-.box{
+.box {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -114,16 +119,21 @@ button:hover {
     background-color: rgba(255, 255, 255, 0.3);
 }
 
-.box:nth-child(1), .box:nth-child(3), .box:nth-child(7), .box:nth-child(9) {
+.box:nth-child(1),
+.box:nth-child(3),
+.box:nth-child(7),
+.box:nth-child(9) {
     border: none;
 }
 
-.box:nth-child(2), .box:nth-child(8) {
+.box:nth-child(2),
+.box:nth-child(8) {
     border-top: none;
     border-bottom: none;
 }
 
-.box:nth-child(4), .box:nth-child(6) {
+.box:nth-child(4),
+.box:nth-child(6) {
     border-left: none;
     border-right: none;
 }
@@ -148,12 +158,13 @@ button:hover {
         border: 1px solid white;
     }
 
-    .new-game-btn, .home-container button {
+    .new-game-btn,
+    .home-container button {
         font-size: 1rem;
         padding: 0.5rem 1.5rem;
     }
 
-    .home-container img{
+    .home-container img {
         width: 300px;
     }
 }
